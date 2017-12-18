@@ -15,6 +15,7 @@ npm run dev
 # 打包文件，形成生产环境，
 npm run build
 
+#vuelazyloda vue懒加载 https://github.com/hilongjw/vue-lazyload#usage
 # build for production and view the bundle analyzer report
 #打包文件，形成生产环境，并且打印报告
 npm run build --report

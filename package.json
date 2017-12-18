@@ -11,7 +11,7 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "babel-runtime":"^6.0.0",
+    "babel-runtime": "^6.0.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "fastclick": "^1.0.6",
@@ -20,7 +20,8 @@
     "axios": "^0.17.1",
     "stylus-loader": "^2.5.1",
     "stylus": "0.52.4",
-    "babel-polyfill": "^6.2.0"
+    "babel-polyfill": "^6.2.0",
+    "vue-lazyload": "^1.1.4"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

@@ -1,38 +1,88 @@
 <template lang="html">
   <div class="recommend">
-  <div class="recommend-content">
-    <div class="slider-wrapper">
-
+  <scroll class="recommend-content" :data="discList" ref="scroll">
+    <div class="">
+      <div v-if="recommends.length" class="slider-wrapper">
+        <slider>
+          <div class="" v-for="item in recommends">
+            <a :href="item.linkUrl">
+              <img class="needsclick" @load="loadImage" :src="item.picUrl" alt="">
+            </a>
+          </div>
+        </slider>
+      </div>
+      <div class="recommend-list">
+        <h1 class="list-title">热门歌单推荐</h1>
+        <ul>
+          <li class="item" v-for="item in discList">
+            <div class="icon">
+              <img v-lazy="item.imgurl" alt="" width="60" height="60">
+            </div>
+            <div class="text">
+              <h2 class="name" v-html="item.creator.name"></h2>
+              <p class="desc" v-html="item.dissname"></p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="recommend-list">
-      <h1 class="list-title">热门歌单推荐</h1>
-      <ul>
-
-      </ul>
+    <div class="loading-container" v-show="!discList.length">
+      <loading>
+      </loading>
     </div>
-  </div>
+  </scroll>
   </div>
 </template>
 
 <script>
 import {
-  getRecommend
+  getRecommend,
+  getDistList
 } from 'api/recommend';
 import {
   ERR_OK
 } from 'api/config';
+import Slider from 'base/slider/slider';
+import Scroll from 'base/scroll/scroll';
+import Loading from 'base/loading/loading';
 export default {
+  data() {
+    return {
+      recommends: [],
+      discList: []
+    };
+  },
   created() {
     this._getRecommend();
+    this._getDistList();
   },
   methods: {
     _getRecommend() {
       getRecommend().then((res) => {
         if (res.code === ERR_OK) {
-          console.log(res.data.slider);
+          this.recommends = res.data.slider;
         }
       });
+    },
+    _getDistList() {
+      getDistList().then((res) => {
+        if (res.code === ERR_OK) {
+          this.discList = res.data.list;
+        }
+      });
+    },
+    // 监听高度，从新计算
+    loadImage() {
+      if (!this.checkLoaded) {
+        this.$refs.scroll.refresh();
+        this.checkLoaded = true;
+      }
     }
+  },
+  components: {
+    Slider,
+    Scroll,
+    Loading
   }
 };
 </script>
@@ -86,4 +136,5 @@ export default {
         width: 100%
         top: 50%
         transform: translateY(-50%)
+
 </style>
