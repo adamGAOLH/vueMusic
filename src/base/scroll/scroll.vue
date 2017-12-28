@@ -9,7 +9,7 @@
 import BScroll from 'better-scroll';
 export default {
   props: {
-    propType: {
+    probeType: {
       type: Number,
       default: 1
     },
@@ -37,7 +37,7 @@ export default {
         return;
       }
       this.scroll = new BScroll(this.$refs.wrapper, {
-        propType: this.propType,
+        probeType: this.probeType,
         click: this.click
 
       });
@@ -48,7 +48,7 @@ export default {
       if (this.listenScroll) {
         let me = this;
         this.scroll.on('scroll', (pos) => {
-          me.$emit('scoll', pos);
+          me.$emit('scroll', pos);
         });
       }
     },

@@ -20,8 +20,7 @@ export function getData(el, name, val) {
   if (val) {
     // setAttribute() 方法添加指定的属性，并为其赋指定的值。
     return el.setAttribute(name, val);
-  } else {
-    // getAttribute() 方法返回指定属性名的属性值
-    return el.getAttribute(name);
   }
+  // getAttribute() 方法返回指定属性名的属性值
+  return el.getAttribute(name);
 }

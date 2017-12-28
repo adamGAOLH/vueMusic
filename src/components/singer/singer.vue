@@ -1,6 +1,7 @@
 <template lang="html">
 <div class="singer">
-  <list-view :data='singers'></list-view>
+  <list-view :data='singers' @select="selectSinger"></list-view>
+  <router-view></router-view>
 </div>
 </template>
 
@@ -13,6 +14,10 @@ import {
 } from 'api/config';
 import Singer from 'common/js/singer';
 import ListView from 'base/listview/listview';
+import {
+  mapMutations
+} from 'vuex';
+
 const HOT_NAME = '热门';
 const HOT_SINGER_LEN = 10;
 export default {
@@ -80,7 +85,17 @@ export default {
       });
       let aa = hot.concat(ret);
       return aa.concat(other);
-    }
+    },
+    selectSinger(singer) {
+      // $router 编程试跳转接口
+      this.$router.push({
+        path: `/singer/${singer.id}`
+      });
+      this.setSinger(singer);
+    },
+    ...mapMutations({
+      setSinger: 'SET_SINGER'
+    })
   },
   components: {
     ListView
